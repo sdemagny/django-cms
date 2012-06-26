@@ -46,8 +46,7 @@ def details(request, slug):
             # fallback languages (CMS_LANGUAGE_CONF)
             for alt_lang in get_fallback_languages(current_language):
                 if alt_lang in available_languages:
-                    alt_url = page.get_absolute_url(language=alt_lang, fallback=True)
-                    path = '/%s%s' % (alt_lang, alt_url)
+                    path = page.get_absolute_url(language=alt_lang, fallback=True)
                     # In the case where the page is not available in the
                     # preferred language, *redirect* to the fallback page. This
                     # is a design decision (instead of rendering in place)).

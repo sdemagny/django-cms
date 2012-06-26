@@ -16,7 +16,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from django.utils.translation import get_language, ugettext_lazy as _
+from django.utils.translation import activate, get_language, ugettext_lazy as _
 from menus.menu_pool import menu_pool
 from mptt.models import MPTTModel
 from os.path import join
@@ -118,6 +118,14 @@ class Page(MPTTModel):
         return u'%s' % (title,)
 
     def get_absolute_url(self, language=None, fallback=True):
+        if language == None:
+            language = get_language()
+        current_language = get_language()
+
+        # Activate requested language (has effect on 'reverse' since
+        # django 1.4)
+        activate(language)
+
         if self.is_home():
             return reverse('pages-root')
         if settings.CMS_FLAT_URLS:
@@ -125,7 +133,13 @@ class Page(MPTTModel):
             return urlutils.urljoin(reverse('pages-root'), path)
         # else
         path = self.get_path(language, fallback)
-        return urlutils.urljoin(reverse('pages-root'), path)
+
+        url = urlutils.urljoin(reverse('pages-root'), path)
+
+        # Restore language
+        activate(current_language)
+        
+        return url
     
     def move_page(self, target, position='first-child'):
         """Called from admin interface when page is moved. Should be used on
