@@ -11,7 +11,7 @@ def pre_patch():
     
     # append some usefull properties to settings
     append_properties = {
-        'i18n_installed': 'cms.middleware.multilingual.MultilingualURLMiddleware' in settings.MIDDLEWARE_CLASSES
+        'i18n_installed': 'django.middleware.locale.LocaleMiddleware' in settings.MIDDLEWARE_CLASSES
     }
     
     for attr, value in append_properties.items():

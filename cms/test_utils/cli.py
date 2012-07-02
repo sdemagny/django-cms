@@ -53,7 +53,7 @@ def configure(**extra):
         ],
         MIDDLEWARE_CLASSES = [
             'django.contrib.sessions.middleware.SessionMiddleware',
-            'cms.middleware.multilingual.MultilingualURLMiddleware',
+            'django.middleware.locale.LocaleMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
             'django.contrib.messages.middleware.MessageMiddleware',
             'django.middleware.common.CommonMiddleware',

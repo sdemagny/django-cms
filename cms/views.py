@@ -92,6 +92,7 @@ def details(request, slug):
     
     # permission checks
     if page.login_required and not request.user.is_authenticated():
+        # XXX I18N: Check if it's still needed
         if settings.i18n_installed:
             path = urlquote("/%s%s" % (request.LANGUAGE_CODE, request.get_full_path()))
         else:

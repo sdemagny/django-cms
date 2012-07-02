@@ -161,13 +161,16 @@ def get_app_patterns():
     is_draft = not settings.CMS_MODERATOR
 
     title_qs = Title.objects.filter(page__publisher_is_draft=is_draft, page__site=current_site)
-    
-    if 'cms.middleware.multilingual.MultilingualURLMiddleware' in settings.MIDDLEWARE_CLASSES:
-        use_namespaces = True
-        hooked_applications = {}
-    else:
-        use_namespaces = False
-        hooked_applications = []
+
+    # XXX I18N: This seems to be broken with dj1.4
+    #if settings.i18n_installed:
+    #    use_namespaces = True
+    #    hooked_applications = {}
+    #else:
+    #    use_namespaces = False
+    #    hooked_applications = []
+    use_namespaces = False
+    hooked_applications = []
     
     # Loop over all titles with an application hooked to them
     for title in title_qs.exclude(application_urls=None).exclude(application_urls='').select_related():

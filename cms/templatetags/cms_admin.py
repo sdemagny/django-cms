@@ -159,7 +159,7 @@ def moderator_choices(page, user):
 
 @register.filter
 def preview_link(page, language):
-    if 'cms.middleware.multilingual.MultilingualURLMiddleware' in settings.MIDDLEWARE_CLASSES:
+    if settings.i18n_installed:
         from django.core.urlresolvers import reverse
 
         # Which one of page.get_slug() and page.get_path() is the right

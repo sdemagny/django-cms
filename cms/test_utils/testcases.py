@@ -20,7 +20,7 @@ import warnings
 
 
 
-URL_CMS_PAGE = "/en/admin/cms/page/"
+URL_CMS_PAGE = "/admin/cms/page/"
 URL_CMS_PAGE_ADD = urljoin(URL_CMS_PAGE, "add/")
 URL_CMS_PAGE_CHANGE = urljoin(URL_CMS_PAGE, "%d/")
 URL_CMS_PAGE_DELETE = urljoin(URL_CMS_PAGE_CHANGE, "delete/")
