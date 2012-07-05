@@ -44,7 +44,7 @@ def applications_page_check(request, current_page=None, path=None):
 class AppRegexURLResolver(RegexURLResolver):
     page_id = None
     url_patterns = None
-    
+
     def resolve_page_id(self, path):
         """Resolves requested path similar way how resolve does, but instead
         of return callback,.. returns page_id to which was application 
@@ -79,6 +79,12 @@ def recurse_patterns(path, pattern_list, page_id):
         # make sure we don't get patterns that start with more than one '^'!
         app_pat = app_pat.lstrip('^')
         path = path.lstrip('^')
+        
+        # if we're using i18n url patterns, remove the leading / to
+        # wrong urls
+        if settings.i18n_installed:
+            path = path.lstrip('/')
+            
         regex = r'^%s%s' % (path, app_pat)
         if isinstance(pattern, RegexURLResolver):
             # this is an 'include', recurse!
@@ -93,6 +99,7 @@ def recurse_patterns(path, pattern_list, page_id):
                 pattern.default_args, pattern.name)
             resolver.page_id = page_id
         newpatterns.append(resolver)
+
     return newpatterns
 
 def _flatten_patterns(patterns):
