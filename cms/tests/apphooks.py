@@ -8,6 +8,7 @@ from cms.test_utils.testcases import CMSTestCase
 from cms.test_utils.util.context_managers import SettingsOverride
 from django.contrib.auth.models import User
 from django.core.urlresolvers import clear_url_caches, reverse
+from django.utils import translation
 import sys
 
 
@@ -107,7 +108,8 @@ class ApphooksTestCase(CMSTestCase):
             
             en_title = child_child_page.publisher_public.get_title_obj('en')
 
-            path = reverse('en:sample-settings')
+            translation.activate('en')
+            path = reverse('sample-settings')
             
             request = self.get_request(path)
             request.LANGUAGE_CODE = 'en'
@@ -120,9 +122,10 @@ class ApphooksTestCase(CMSTestCase):
 
             self.assertTemplateUsed(response, 'sampleapp/home.html')
             self.assertContains(response, en_title.title)
-            
+
+            translation.activate('de')
             de_title = child_child_page.publisher_public.get_title_obj('de')
-            path = reverse('de:sample-settings')
+            path = reverse('sample-settings')
         
             request = self.get_request(path)
             request.LANGUAGE_CODE = 'de'
@@ -166,13 +169,14 @@ class ApphooksTestCase(CMSTestCase):
             self.assertTemplateUsed(response, 'sampleapp/extra.html')
             self.assertContains(response, "test urlconf")
 
-            path = reverse('de:extra_first')
+            translation.activate('de')
+            path = reverse('extra_first')
             response = self.client.get(path)
             self.assertEquals(response.status_code, 200)
             self.assertTemplateUsed(response, 'sampleapp/extra.html')
             self.assertContains(response, "test urlconf")
 
-            path = reverse('de:extra_second')
+            path = reverse('extra_second')
             response = self.client.get(path)
             self.assertEquals(response.status_code, 200)
             self.assertTemplateUsed(response, 'sampleapp/extra.html')

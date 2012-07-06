@@ -73,19 +73,19 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         self.assertEquals(response.context['request'].user.is_authenticated(), True)
         self.assertEquals(response.context['request'].user.is_staff, True)
         # call /
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
         
     def test_node_staff_access_page_and_children_group_1_no_staff(self):
@@ -113,26 +113,26 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         user = User.objects.get(username='user_1_nostaff')
         self.assertEquals(login_user_id, user.id)
         # login worked
-        url = '/en/page_b/'
+        url = '/page_b/'
         response = client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertEquals(response.context['request'].user.is_authenticated(), True)
         self.assertEquals(response.context['request'].user.is_staff, False)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_c/"
+        url = "/page_b/page_b_c/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_d/"
+        url = "/page_b/page_b_d/"
         self.assertPageFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageNotFound(url, client)
    
     def test_node_staff_access_children_group_2(self):
@@ -162,25 +162,25 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         login_user_id = client.session.get('_auth_user_id')
         user = User.objects.get(username='user_2')
         self.assertEquals(login_user_id, user.id)
-        url = '/en/page_c/'
+        url = '/page_c/'
         response = client.get(url)
         self.assertEquals(response.context['request'].user.is_authenticated(), True)
         self.assertEquals(response.context['request'].user.is_staff, True)
         self.assertEqual(response.status_code, 200)
         
-        url = '/en/page_b/'
+        url = '/page_b/'
         self.assertPageNotFound(url, client)
-        url = '/en/page_b/page_b_b/'
+        url = '/page_b/page_b_b/'
         self.assertPageNotFound(url, client)
-        url = '/en/page_b/page_b_b/page_b_b_a/'
+        url = '/page_b/page_b_b/page_b_b_a/'
         self.assertPageFound(url, client)
-        url = '/en/page_b/page_b_b/page_b_b_b/'
+        url = '/page_b/page_b_b/page_b_b_b/'
         self.assertPageFound(url, client)
-        url = '/en/page_b/page_b_b/page_b_b_a/page_b_b_a_a/'
+        url = '/page_b/page_b_b/page_b_b_a/page_b_b_a_a/'
         self.assertPageNotFound(url, client)
-        url = '/en/page_d/'
+        url = '//page_d/'
         self.assertPageNotFound(url, client)
-        url = '/en/page_d/page_d_a/'
+        url = '/page_d/page_d_a/'
         self.assertPageFound(url, client)
 #        
     def test_node_staff_access_children_group_2_nostaff(self):
@@ -201,21 +201,21 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         login_ok = client.login(username='user_2_nostaff', password='user_2_nostaff')
         self.assertTrue(login_ok)
         # member of group that has access to this page
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
+        url = "/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageNotFound(url, client)
         
     def test_node_staff_access_page_and_descendants_group_3(self):
@@ -252,29 +252,29 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         self.assertEqual(login_ok , True)
         url = self.get_pages_root()
         self.assertPageFound(url, client)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_c/"
+        url = "/page_b/page_b_c/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_d/"
+        url = "/page_b/page_b_d/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
+        url = "/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/page_d_b/"
+        url = "/page_d/page_d_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/page_d_c/"
+        url = "/page_d/page_d_c/"
         self.assertPageFound(url, client)
         
     def test_node_staff_access_page_and_descendants_group_3_nostaff(self):
@@ -307,29 +307,29 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         url = self.get_pages_root()
         response = client.get(url)
         self.assertEqual(response.status_code, 404)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_c/"
+        url = "/page_b/page_b_c/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_d/"
+        url = "/page_b/page_b_d/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
+        url = "/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_b/"
+        url = "/page_d/page_d_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_c/"
+        url = "/page_d/page_d_c/"
         self.assertPageNotFound(url, client)
         
     def test_node_staff_access_descendants_group_4(self):
@@ -359,32 +359,32 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         # call /
         url = self.get_pages_root()
         self.assertPageFound(url, client)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_c/"
+        url = "/page_b/page_b_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_d/"
+        url = "/page_b/page_b_d/"
         self.assertPageNotFound(url, client)
         # not a direct child
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
+        url = "/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/page_d_b/"
+        url = "/page_d/page_d_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/page_d_c/"
+        url = "/page_d/page_d_c/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/page_d_d/"
+        url = "/page_d/page_d_d/"
         self.assertPageFound(url, client)
          
     def test_node_staff_access_descendants_group_4_nostaff(self):
@@ -408,31 +408,31 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         self.assertTrue(login_ok)
         url = self.get_pages_root()
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_c/"
+        url = "/page_b/page_b_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_d/"
+        url = "/page_b/page_b_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
+        url = "/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_b/"
+        url = "/page_d/page_d_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_c/"
+        url = "/page_d/page_d_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_d/"
+        url = "/page_d/page_d_d/"
         self.assertPageNotFound(url, client) 
 
     def test_node_staff_access_page_group_5(self):
@@ -458,25 +458,25 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         self.assertTrue(login_ok)
         url = self.get_pages_root()
         self.assertPageFound(url, client)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_c/"
+        url = "/page_b/page_b_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_d/"
+        url = "/page_b/page_b_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
+        url = "/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
         
     def test_node_staff_access_page_group_5_nostaff(self):
@@ -495,30 +495,30 @@ class ViewPermissionComplexMenuStaffNodeTests(ViewPermissionTests):
         self.assertTrue(login_ok)
         url = self.get_pages_root()
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_a/"
+        url = "/page_b/page_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_c/"
+        url = "/page_b/page_b_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_d/"
+        url = "/page_b/page_b_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_c/"
+        url = "/page_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_b/"
+        url = "/page_d/page_d_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_c/"
+        url = "/page_d/page_d_c/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_d/"
+        url = "/page_d/page_d_d/"
         self.assertPageNotFound(url, client)
 

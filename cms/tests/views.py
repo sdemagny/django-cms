@@ -124,7 +124,8 @@ class ViewTests(SettingsOverrideTestCase):
         request = self.get_request('/')
         response = details(request, '')
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['Location'], '%s?next=/en/' % settings.LOGIN_URL)
+        self.assertEqual(response['Location'], '%s?next=/' % settings.LOGIN_URL)
+        # XXX I18N: This code has to be replaced
         with SettingsOverride(i18n_installed=False):
             request = self.get_request('/')
             response = details(request, '')

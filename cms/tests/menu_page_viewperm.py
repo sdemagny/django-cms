@@ -332,18 +332,18 @@ class ViewPermissionComplexMenuAllNodesTests(ViewPermissionTests):
         client = Client()
         login_ok = client.login(username='user_1', password='user_1')
         self.assertEqual(login_ok , True)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageFound(url, client)
         # descendant
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageNotFound(url, client)
         # group 5
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
         # should be public as only page_d is restricted
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
         
     def test_menu_access_children_group_2(self):
@@ -371,15 +371,15 @@ class ViewPermissionComplexMenuAllNodesTests(ViewPermissionTests):
         client = Client()
         login_ok = client.login(username='user_2', password='user_2')
         self.assertEqual(login_ok , True)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
+        url = "/page_b/page_b_b/page_b_b_a/page_b_b_a_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
         
     def test_menu_access_page_and_descendants_group_3(self):
@@ -413,13 +413,13 @@ class ViewPermissionComplexMenuAllNodesTests(ViewPermissionTests):
         client = Client()
         login_ok = client.login(username='user_3', password='user_3')
         self.assertEqual(login_ok , True)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageFound(url, client)
-        url = "/en/page_b/page_b_d/page_b_d_a/"
+        url = "/page_b/page_b_d/page_b_d_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
         
     def test_menu_access_descendants_group_4(self):
@@ -445,15 +445,15 @@ class ViewPermissionComplexMenuAllNodesTests(ViewPermissionTests):
         client = Client()
         login_ok = client.login(username='user_4', password='user_4')
         self.assertTrue(login_ok)
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
         
     def test_menu_access_page_group_5(self):
@@ -477,15 +477,15 @@ class ViewPermissionComplexMenuAllNodesTests(ViewPermissionTests):
         login_ok = client.login(username='user_5', password='user_5')
         self.assertTrue(login_ok)
         # call /
-        url = "/en/page_b/"
+        url = "/page_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/"
+        url = "/page_b/page_b_b/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_b/page_b_b/page_b_b_a/"
+        url = "/page_b/page_b_b/page_b_b_a/"
         self.assertPageNotFound(url, client)
-        url = "/en/page_d/"
+        url = "/page_d/"
         self.assertPageFound(url, client)
-        url = "/en/page_d/page_d_a/"
+        url = "/page_d/page_d_a/"
         self.assertPageFound(url, client)
 
 
@@ -570,11 +570,11 @@ class ViewPermissionTreeBugTests(ViewPermissionTests):
         ]
         # anonymous sees page_6 not
         self.assertGrantedVisibility(all_pages, granted)
-        url = "/en/page_2/page_3/page_4/"
+        url = "/page_2/page_3/page_4/"
         self.assertPageFound(url)
-        url = "/en/page_5/"
+        url = "/page_5/"
         self.assertPageFound(url)
-        url = "/en/page_5/page_6/"
+        url = "/page_5/page_6/"
         self.assertPageNotFound(url)
         # group member
         granted = [ 'page_1',
@@ -588,9 +588,9 @@ class ViewPermissionTreeBugTests(ViewPermissionTests):
         client = Client()
         login_ok = client.login(username='user_6', password='user_6')
         self.assertTrue(login_ok)
-        url = "/en/page_2/page_3/page_4/"
+        url = "/page_2/page_3/page_4/"
         self.assertPageFound(url, client)
-        url = "/en/page_5/page_6/"
+        url = "/page_5/page_6/"
         self.assertPageFound(url, client)
         
         
