@@ -138,7 +138,11 @@ class Page(MPTTModel):
 
         # Restore language
         activate(current_language)
-        
+#        import re
+#        p = re.compile('.*manifesto.*')
+#        if(p.match(url)):
+#           import pdb
+#           pdb.set_trace()
         return url
     
     def move_page(self, target, position='first-child'):

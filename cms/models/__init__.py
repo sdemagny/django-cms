@@ -23,11 +23,5 @@ def validate_dependencies():
         if not hasattr(VersionAdmin, 'get_urls'):
             raise ImproperlyConfigured('django-cms requires never version of reversion (VersionAdmin must contain get_urls method)')
 
-def remove_current_root(url):
-    current_root = "/%s/" % get_language()
-    if url[:len(current_root)] == current_root:
-        url = url[len(current_root) - 1:]
-    return url
-
 validate_dependencies()
 validate_settings()
