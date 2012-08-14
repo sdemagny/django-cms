@@ -160,14 +160,11 @@ def moderator_choices(page, user):
 @register.filter
 def preview_link(page, language):
     if settings.i18n_installed:
-        from django.core.urlresolvers import reverse
-
         # Which one of page.get_slug() and page.get_path() is the right
         # one to use in this block? They both seem to return the same thing.
         try:
             # attempt to retrieve the localized path/slug and return
-            root = reverse('pages-root')
-            return root + language + "/" + page.get_absolute_url(language, fallback=False)[len(root):]
+            return page.get_absolute_url(language, fallback=False)
         except:
             # no localized path/slug. therefore nothing to preview. stay on the same page.
             # perhaps the user should be somehow notified for this.
